@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+
+
+## DB config
+spring:
+  application:
+    name: user_service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/ca-user
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:1085}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+
+
+## OpenApi config
+springdoc:
+  packagesToScan: org.brain.user_service.controller
+  pathsToMatch: /api/v1/user/**
+
+
