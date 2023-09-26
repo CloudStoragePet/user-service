@@ -1,7 +1,9 @@
 server:
   port: 8080
 
-
+jwt:
+  secret: secret
+  lifetime: 30m
 
 ## DB config
 spring:
