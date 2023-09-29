@@ -1,7 +1,8 @@
-package org.brain.user_service.validation;
+package org.brain.user_service.validation.validators;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.brain.user_service.validation.EqualFields;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 

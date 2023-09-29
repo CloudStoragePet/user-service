@@ -22,7 +22,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id_sequence")
-    @SequenceGenerator(name = "role_id_sequence", sequenceName = "role_id_sequence")
+    @SequenceGenerator(name = "role_id_sequence", sequenceName = "role_id_sequence", allocationSize = 1)
     private Long id;
 
     @NotNull

@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Tag(name = "Authentication service", description = "Authentication management API")
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/auth")
 public interface UserApi {
 
-    @Operation(summary = "New user registration", tags = { "Sign-Up" })
+    @Operation(summary = "New user registration", tags = { "Auth" })
     @ApiResponses({
         @ApiResponse(responseCode = "201", content = {
                 @Content(schema = @Schema(implementation = User.class), mediaType = "application/json") }) })
@@ -34,10 +34,9 @@ public interface UserApi {
     ResponseEntity<User> signUp(@Validated({ValidationRegistration.class}) @RequestBody UserRequest request) throws ServiceException;
 
 
-    @Operation(summary = "Confirm acceses to user account", tags = { "Log-in" })
+    @Operation(summary = "LogIn and get token", tags = { "Auth" })
     @PostMapping(value = "/log-in")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<LoginResponse> logIn(@Valid @RequestBody UserRequest request) throws ServiceException;
-
 
 }

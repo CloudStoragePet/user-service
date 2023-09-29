@@ -4,6 +4,7 @@ server:
 jwt:
   secret: secret
   lifetime: 30m
+  issuer: user_service
 
 ## DB config
 spring:
