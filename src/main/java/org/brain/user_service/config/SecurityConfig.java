@@ -55,16 +55,17 @@ public class SecurityConfig {
                 // csrf creates token and hides it in html todo
                 .csrf(AbstractHttpConfigurer::disable)
                 // can use declarative way instead by @EnableMethodSecurity(securedEnabled = true), @Secured("User", "Admin")
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/v1/auth/").permitAll()
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         // hasRole uses Authorization Manager, can implement custom todo
                         .requestMatchers("/api/v1/validate/admin").hasRole("ADMIN")
                         .requestMatchers("/api/v1/validate/user").hasRole("USER")
                         .anyRequest().authenticated())
                 // sessionManagement checks if user can login into multiple devices simultaneously todo
-                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // exceptionHandling checks if user is redirected to access-denied page todo
-                .exceptionHandling((ex) -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         // addFilterBefore
         return http.build();

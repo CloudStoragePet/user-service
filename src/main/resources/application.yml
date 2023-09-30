@@ -2,9 +2,9 @@ server:
   port: 8080
 
 jwt:
-  secret: secret
-  lifetime: 30m
-  issuer: user_service
+  secret: ${JWT_SECRET:default_2131secret}
+  lifetime: ${JWT_LIFETIME:3600000}
+  issuer: ${JWT_ISSUER:user_service}
 
 ## DB config
 spring:
