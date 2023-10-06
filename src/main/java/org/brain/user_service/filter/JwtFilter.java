@@ -22,8 +22,8 @@ import java.util.List;
 @AllArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtUtils jwtUtils;
-    private final String BEARER_PREFIX ="Bearer ";
-    private final String AUTHORIZATION_HEADER ="Authorization";
+    private static final String BEARER_PREFIX ="Bearer ";
+    private static final String AUTHORIZATION_HEADER ="Authorization";
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)
             throws ServletException, IOException {

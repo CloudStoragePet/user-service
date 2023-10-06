@@ -10,14 +10,15 @@ import org.springframework.stereotype.Service;
 public record RoleServiceImpl (RoleRepository roleRepository) implements RoleService {
     private static final String USER_ROLE = "ROLE_USER";
     private static final String ADMIN_ROLE = "ROLE_USER";
+    private static final String ROLE_NOT_FOUND_ERROR="Role not found!";
     @Override
     public Role userRole() throws EntityNotFoundException {
-        return roleRepository.findByName(USER_ROLE).orElseThrow(EntityNotFoundException::new);
+        return roleRepository.findByName(USER_ROLE).orElseThrow(()->new EntityNotFoundException(ROLE_NOT_FOUND_ERROR));
     }
 
     @Override
     public Role adminRole() throws EntityNotFoundException {
-        return roleRepository.findByName(ADMIN_ROLE).orElseThrow(EntityNotFoundException::new);
+        return roleRepository.findByName(ADMIN_ROLE).orElseThrow(()->new EntityNotFoundException(ROLE_NOT_FOUND_ERROR));
 
     }
 }

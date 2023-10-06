@@ -1,4 +1,5 @@
-CREATE SEQUENCE IF NOT EXISTS customer_id_sequence START WITH 1 INCREMENT BY 50;
+
+CREATE SEQUENCE IF NOT EXISTS user_id_sequence START WITH 1 INCREMENT BY 50;
 CREATE TABLE users
 (
     id              BIGINT       NOT NULL,
@@ -31,8 +32,8 @@ ALTER TABLE user_roles
 ALTER TABLE user_roles
     ADD CONSTRAINT fk_userol_on_user FOREIGN KEY (user_id) REFERENCES users (id);
 
-INSERT INTO roles (name)
-VALUES ('ROLE_USER'),
-       ('ROLE_ADMIN');
+INSERT INTO roles (id,name)
+VALUES (1,'ROLE_USER'),
+       (2, 'ROLE_ADMIN');
 
 

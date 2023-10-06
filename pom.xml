@@ -47,7 +47,7 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--create own properties in .yml or .properites file, must be after lombok-->
+        <!--create own properties in .yml or .properties file, must be after lombok-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -64,6 +64,7 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.1.0</version>
         </dependency>
+        <!--Flyway Db migration-->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
@@ -79,6 +80,13 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>2.0.7</version>
+        </dependency>
+        <!--Testing asserts-->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>

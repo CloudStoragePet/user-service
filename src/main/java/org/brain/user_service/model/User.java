@@ -1,27 +1,25 @@
 package org.brain.user_service.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
-@Data
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
 public class User {
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Id
-    @SequenceGenerator(name = "customer_id_sequence", sequenceName = "customer_id_sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_sequence")
+    @SequenceGenerator(name = "user_id_sequence", sequenceName = "user_id_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sequence")
     private Long id;
 
 
@@ -53,11 +51,14 @@ public class User {
     public int hashCode() {
         return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), isEmailConfirmed());
     }
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 }

@@ -1,24 +1,22 @@
 package org.brain.user_service.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "roles")
 public class Role {
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id_sequence")
@@ -28,7 +26,7 @@ public class Role {
     @NotNull
     @Column(name = "name")
     private String name;
-
-    @ManyToMany
+    @JsonBackReference
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     Set<User> users;
 }

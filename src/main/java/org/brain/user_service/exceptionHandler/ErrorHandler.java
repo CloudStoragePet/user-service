@@ -1,8 +1,10 @@
-package org.brain.user_service.exceptionHandler.model;
+package org.brain.user_service.exceptionHandler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.brain.user_service.exceptionHandler.exceptions.EntityNotFoundException;
 import org.brain.user_service.exceptionHandler.exceptions.ServiceException;
+import org.brain.user_service.exceptionHandler.model.Error;
+import org.brain.user_service.exceptionHandler.model.ErrorType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
