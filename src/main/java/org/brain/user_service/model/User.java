@@ -1,32 +1,26 @@
 package org.brain.user_service.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
-
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Data
 @Builder
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Id
-    @SequenceGenerator(name = "customer_id_sequence", sequenceName = "customer_id_sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_sequence")
+    @SequenceGenerator(name = "user_id_sequence", sequenceName = "user_id_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sequence")
     private Long id;
 
 
@@ -57,5 +51,17 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), isEmailConfirmed());
+    }
+
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 }

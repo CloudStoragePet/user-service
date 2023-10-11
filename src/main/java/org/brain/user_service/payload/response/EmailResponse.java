@@ -10,9 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class LoginResponse {
+public class EmailResponse {
     @Schema(description = "Email address", example = "email@example.com")
     private String email;
-    @Schema(description = "JWT auth token", example = "randomsequenceofbytes123as213sdw3")
-    private String token;
 }

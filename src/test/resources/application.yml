@@ -1,8 +1,5 @@
-server:
-  port: 8080
-
 jwt:
-  secret: ${JWT_SECRET:413F4428472B4B6250655368566D5970337336763979244226452948404D6351}
+  secret: ${JWT_SECRET:default2131secret2asda23adsa2dadasfaw3dasdffffffffffasef3afdbvDGGFdgGFGdsfsSDfsdfsdfdsfa3242yhfg4gd6vc}
   lifetime: ${JWT_LIFETIME:3600000}
   issuer: ${JWT_ISSUER:user_service}
 
@@ -10,17 +7,20 @@ jwt:
 spring:
   application:
     name: user_service
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:5432/ca-user?currentSchema=ca-user
-    username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:1085}
   jpa:
     hibernate:
       ddl-auto: none
   flyway:
     enabled: true
 
-
+# Debug security ON
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web:
+            FilterChainProxy=DEBUG:
 
 ## OpenApi config
 springdoc:
