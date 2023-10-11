@@ -2,6 +2,8 @@
 
 Identity Application is a Spring Boot-based microservice for managing user authentication and authorization.
 
+## Server port: 8080
+
 ## Requirements
 
 - Java version 17.0.7
@@ -54,6 +56,6 @@ To run the Identity Application with Docker, follow these steps:
        --build-arg DB_HOST=<your_db_host> \
        --build-arg DB_USER=<your_db_user> \
        --build-arg DB_PASSWORD=<your_db_password> \
-       -t user-service .
+       -t user_service .
 
 http://localhost:8080/swagger-ui/index.html
