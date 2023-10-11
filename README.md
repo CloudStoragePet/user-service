@@ -3,6 +3,7 @@
 Identity Application is a Spring Boot-based microservice for managing user authentication and authorization.
 
 ## Requirements
+
 - Java version 17.0.7
 - Spring Boot 3.1.3
 - Maven 3.9.1
@@ -13,7 +14,6 @@ Identity Application is a Spring Boot-based microservice for managing user authe
 2. Spring Boot
 3. Spring Security
 4. JWT (JSON Web Tokens)
-
 
 ## Application Features
 
@@ -40,11 +40,12 @@ To run the Identity Application with Docker, follow these steps:
 
 1. Ensure that Docker and Docker Compose are installed on your system.
 2. Clone the repository and navigate to the project directory.
-3. Run in `cmd`  
+3. Run in `cmd`
    ```sh
       mvn clean install
    ```
-4. Build the Docker image by running the following command. Make sure to replace the placeholders `<your_*>` with your actual values:
+4. Build the Docker image by running the following command. Make sure to replace the placeholders `<your_*>` with your
+   actual values:
 
    ```sh
    docker build \

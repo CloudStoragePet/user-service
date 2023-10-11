@@ -6,7 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -51,6 +52,7 @@ public class User {
     public int hashCode() {
         return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), isEmailConfirmed());
     }
+
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -58,6 +60,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
     public void addRole(Role role) {
         this.roles.add(role);
     }

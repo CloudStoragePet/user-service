@@ -1,11 +1,12 @@
 package org.brain.user_service.config;
 
 import lombok.RequiredArgsConstructor;
+import org.brain.user_service.exceptionHandler.AccessDeniedEntryPoint;
+import org.brain.user_service.exceptionHandler.JwtAuthenticationEntryPoint;
 import org.brain.user_service.filter.JwtFilter;
 import org.brain.user_service.service.impl.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -16,7 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -60,14 +60,26 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         // hasRole uses Authorization Manager, can implement custom todo
                         .requestMatchers("/api/v1/validation/admin").hasRole("ADMIN")
-                        .requestMatchers("/api/v1/validation/user").hasRole("USER")
+                        .requestMatchers("/api/v1/validation/user").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll())
                 // sessionManagement checks if user can login into multiple devices simultaneously todo
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // exceptionHandling checks if user is redirected to access-denied page todo
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .exceptionHandling(ex -> {
+                    ex.authenticationEntryPoint(jwtAuthenticationEntryPoint());
+                    ex.accessDeniedHandler(accessDeniedEntryPoint());
+                })
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
+    @Bean
+    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
+        return new JwtAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public AccessDeniedEntryPoint accessDeniedEntryPoint() {
+        return new AccessDeniedEntryPoint();
+    }
 }

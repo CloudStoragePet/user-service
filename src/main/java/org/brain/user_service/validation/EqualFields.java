@@ -16,6 +16,7 @@ public @interface EqualFields {
     String message() default "Fields not equal";
 
     String[] value();
+
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

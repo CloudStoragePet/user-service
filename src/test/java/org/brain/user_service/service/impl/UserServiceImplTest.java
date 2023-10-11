@@ -17,10 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -53,6 +54,7 @@ class UserServiceImplTest {
     final String userPasswordEncoded = "Password52";
     Set<Role> userRoles;
     Set<User> roleUsers;
+
     @BeforeEach
     void setUpCorrectUser() {
         user = User.builder()
@@ -66,6 +68,7 @@ class UserServiceImplTest {
                 .build();
         roleUsers = Set.of(user);
     }
+
     @BeforeEach
     void setUpCorrectRole() {
         roleUser = Role.builder()
@@ -75,6 +78,7 @@ class UserServiceImplTest {
                 .build();
         userRoles = Set.of(roleUser);
     }
+
     @Test
     void signUp_ValidUser_Success() {
 

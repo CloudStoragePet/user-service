@@ -2,8 +2,7 @@ package org.brain.user_service.payload.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Data;
@@ -25,21 +24,21 @@ public class UserRequest {
      */
     private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}$";
     @Schema(description = "Firstname", example = "John")
-    @NotNull(groups = {ValidationRegistration.class})
+    @NotBlank(groups = {ValidationRegistration.class})
     private String firstName;
     @Schema(description = "Lastname", example = "Doe")
-    @NotNull(groups = {ValidationRegistration.class})
+    @NotBlank(groups = {ValidationRegistration.class})
     private String lastName;
     @Schema(description = "Email", example = "email@example.com")
-    @NotNull(groups = {ValidationRegistration.class, ValidationLogin.class})
+    @NotBlank(groups = {ValidationRegistration.class, ValidationLogin.class})
     @Email(message = "Email not valid", groups = {ValidationRegistration.class, ValidationLogin.class})
     private String email;
     @Schema(description = "Password", example = "Password52")
-    @NotEmpty(groups = {ValidationRegistration.class, ValidationLogin.class})
+    @NotBlank(groups = {ValidationRegistration.class, ValidationLogin.class})
     @Pattern(message = "Password not valid", regexp = PASSWORD_PATTERN, groups = {ValidationRegistration.class, ValidationLogin.class})
     private String password;
     @Schema(description = "Confirm password", example = "Password52")
     @Pattern(message = "Confirm password not valid", regexp = PASSWORD_PATTERN)
-    @NotNull(groups = {ValidationRegistration.class})
+    @NotBlank(groups = {ValidationRegistration.class})
     private String confirmPassword;
 }

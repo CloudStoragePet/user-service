@@ -12,7 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,6 +34,7 @@ class RoleServiceImplTest {
 
     final String USER_ROLE = "ROLE_USER";
     final String ADMIN_ROLE = "ROLE_USER";
+
     @BeforeEach
     void setUpCorrectRole() {
         roleUser = Role.builder()
@@ -44,6 +46,7 @@ class RoleServiceImplTest {
                 .name(ADMIN_ROLE)
                 .build();
     }
+
     @Test
     void userRole_FindsUserRoleInDB_Success() {
         when(roleRepository.findByName(USER_ROLE)).thenReturn(Optional.of(roleUser));
@@ -59,9 +62,10 @@ class RoleServiceImplTest {
     void userRole_NotFindsUserRoleInDB_Exception() {
         when(roleRepository.findByName(USER_ROLE)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(()->roleService.userRole())
+        assertThatThrownBy(() -> roleService.userRole())
                 .isInstanceOf(EntityNotFoundException.class);
     }
+
     @Test
     void adminRole_FindsAdminRoleInDB_Success() {
         when(roleRepository.findByName(ADMIN_ROLE)).thenReturn(Optional.of(roleAdmin));
@@ -77,7 +81,7 @@ class RoleServiceImplTest {
     void adminRole_NotFindsAdminRoleInDB_Exception() {
         when(roleRepository.findByName(ADMIN_ROLE)).thenReturn(Optional.empty());
 
-        assertThatThrownBy(()->roleService.adminRole())
+        assertThatThrownBy(() -> roleService.adminRole())
                 .isInstanceOf(EntityNotFoundException.class);
     }
 }

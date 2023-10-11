@@ -17,6 +17,7 @@ public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException() {
         this(DEFAULT_MESSAGE);
     }
+
     public EntityNotFoundException(String message) {
         super(message);
     }

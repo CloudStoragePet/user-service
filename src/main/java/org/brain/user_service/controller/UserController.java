@@ -42,7 +42,7 @@ public class UserController implements UserApi {
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String token = jwtUtils.generateToken(userDetails);
-        log.debug("user logged in: "+ userDetails.getUsername());
+        log.debug("user logged in: " + userDetails.getUsername());
         LoginResponse response = LoginResponse.builder()
                 .email(userDetails.getUsername())
                 .token(token)

@@ -4,6 +4,7 @@ import org.brain.user_service.exceptionHandler.exceptions.EntityNotFoundExceptio
 import org.brain.user_service.model.Role;
 
 public interface RoleService {
-     Role userRole() throws EntityNotFoundException;
-     Role adminRole() throws EntityNotFoundException;
+    Role userRole() throws EntityNotFoundException;
+
+    Role adminRole() throws EntityNotFoundException;
 }
