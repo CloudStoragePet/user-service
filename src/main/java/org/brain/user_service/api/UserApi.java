@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.brain.user_service.exceptionHandler.exceptions.ServiceException;
-import org.brain.user_service.model.User;
 import org.brain.user_service.payload.request.UserRequest;
 import org.brain.user_service.payload.response.EmailResponse;
 import org.brain.user_service.payload.response.LoginResponse;
@@ -30,7 +29,7 @@ public interface UserApi {
     @Operation(summary = "Sign-up a default user")
     @ApiResponses({
             @ApiResponse(responseCode = "201", content = {
-                    @Content(schema = @Schema(implementation = User.class), mediaType = "application/json")})})
+                    @Content(schema = @Schema(implementation = EmailResponse.class), mediaType = "application/json")})})
     @PostMapping(value = "/signup")
     @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<EmailResponse> signUp(@Validated({ValidationRegistration.class}) @RequestBody UserRequest request) throws ServiceException;

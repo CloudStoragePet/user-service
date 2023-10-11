@@ -21,7 +21,6 @@ The Identity Application manages user authentication and authorization by provid
 
 - User registration
 - User login
-- Password management
 - Token-based authentication
 - Token management (e.g. expiration, validation)
 
@@ -29,10 +28,10 @@ The Identity Application manages user authentication and authorization by provid
 
 The Identity Application exposes the following RESTful API endpoints:
 
-- `POST /api/v1/auth/sign-up`: Register a new user.
-- `POST /api/v1/auth/log-in`: Login with existing user credentials and generate a JWT token.
-- `GET /api/v1/auth/validate/user`: Validate users token.
-- `POST /api/v1/auth/validate/admin`: Validate admins token.
+- `POST /api/v1/auth/signup`: Register a new user.
+- `POST /api/v1/auth/login`: Login with existing user credentials and generate a JWT token.
+- `GET /api/v1/validation/user`: Validate users token.
+- `POST /api/v1/validation/admin`: Validate admins token.
 
 ## Running the Application with Docker
 
