@@ -48,6 +48,12 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+        <!--Eureka client-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>4.0.3</version>
+        </dependency>
         <!--create own properties in .yml or .properties file, must be after lombok-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
