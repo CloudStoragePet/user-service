@@ -2,8 +2,7 @@ package org.brain.user_service;
 
 import org.brain.user_service.payload.request.UserRequest;
 import org.brain.user_service.utils.JwtUtils;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserServiceApplicationTests {
     @Autowired
     private WebTestClient webTestClient;
@@ -42,6 +42,7 @@ class UserServiceApplicationTests {
     final List<String> userRoles = List.of(userRoleName);
     final List<String> adminRoles = List.of(userRoleName, adminRoleName);
 
+
     @Test
     @Order(1)
     void signUp_User_Success() {
@@ -63,9 +64,29 @@ class UserServiceApplicationTests {
                 .jsonPath("$.email").isEqualTo(userEmail);
 
     }
-
     @Test
     @Order(2)
+    void signUp_Admin_Success() {
+
+        UserRequest signUpRequest = UserRequest.builder()
+                .email(adminEmail)
+                .firstName(userFirstName)
+                .lastName(userLastName)
+                .password(userPassword)
+                .confirmPassword(userPassword)
+                .build();
+
+        webTestClient.post()
+                .uri(SIGN_UP_URI)
+                .bodyValue(signUpRequest)
+                .exchange()
+                .expectStatus().isCreated()
+                .expectBody()
+                .jsonPath("$.email").isEqualTo(adminEmail);
+
+    }
+    @Test
+    @Order(3)
     void logIn_User_Success() {
         UserRequest logInRequest = UserRequest.builder()
                 .email(userEmail)
@@ -82,6 +103,7 @@ class UserServiceApplicationTests {
     }
 
     @Test
+    @Order(4)
     void validateUserToken_User_Success() {
         String token = generateJwtToken(userEmail, userRoles);
         webTestClient
@@ -95,6 +117,7 @@ class UserServiceApplicationTests {
     }
 
     @Test
+    @Order(5)
     void validateUserToken_Admin_Success() {
         String token = generateJwtToken(adminEmail, adminRoles);
         webTestClient
@@ -108,6 +131,7 @@ class UserServiceApplicationTests {
     }
 
     @Test
+    @Order(6)
     void validateAdminToken_Admin_Success() {
         String token = generateJwtToken(adminEmail, adminRoles);
         webTestClient
@@ -121,6 +145,7 @@ class UserServiceApplicationTests {
     }
 
     @Test
+    @Order(7)
     void validateAdminToken_User_Unauthorized() {
         String token = generateJwtToken(userEmail, userRoles);
         webTestClient

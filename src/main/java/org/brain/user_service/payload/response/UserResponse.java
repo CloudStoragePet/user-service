@@ -10,7 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class EmailResponse {
+public class UserResponse {
+    @Schema(description = "Id", example = "4")
+    private Long id;
     @Schema(description = "Email address", example = "email@example.com")
     private String email;
 }

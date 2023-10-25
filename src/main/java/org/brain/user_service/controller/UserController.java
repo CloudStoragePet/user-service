@@ -7,7 +7,7 @@ import org.brain.user_service.api.UserApi;
 import org.brain.user_service.mapper.UserMapper;
 import org.brain.user_service.model.User;
 import org.brain.user_service.payload.request.UserRequest;
-import org.brain.user_service.payload.response.EmailResponse;
+import org.brain.user_service.payload.response.UserResponse;
 import org.brain.user_service.payload.response.LoginResponse;
 import org.brain.user_service.service.UserService;
 import org.brain.user_service.utils.JwtUtils;
@@ -25,11 +25,13 @@ public class UserController implements UserApi {
     private JwtUtils jwtUtils;
 
     @Override
-    public ResponseEntity<EmailResponse> signUp(UserRequest request) {
+    public ResponseEntity<UserResponse> signUp(UserRequest request) {
         log.info("new user registration {}", request);
         User user = UserMapper.INSTANCE.mapToUser(request);
-        userService.signUp(user);
-        EmailResponse response = EmailResponse.builder().email(user.getEmail()).build();
+        user = userService.signUp(user);
+        UserResponse response = UserResponse.builder()
+                .id(user.getId())
+                .email(user.getEmail()).build();
         // todo: confirm email
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -39,11 +41,12 @@ public class UserController implements UserApi {
         log.info("request for login");
         User user = UserMapper.INSTANCE.mapToUser(request);
         Authentication authentication = userService.logIn(user);
-
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String token = jwtUtils.generateToken(userDetails);
+        user = userService.findByEmail(userDetails.getUsername()); // get id
         log.debug("user logged in: " + userDetails.getUsername());
         LoginResponse response = LoginResponse.builder()
+                .id(user.getId())
                 .email(userDetails.getUsername())
                 .token(token)
                 .build();

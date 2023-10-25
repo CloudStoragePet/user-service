@@ -6,7 +6,7 @@ jwt:
 ## DB config
 spring:
   application:
-    name: user_service
+    name: user-service
   jpa:
     hibernate:
       ddl-auto: none

@@ -11,6 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class LoginResponse {
+    @Schema(description = "Id", example = "4")
+    private Long id;
     @Schema(description = "Email address", example = "email@example.com")
     private String email;
     @Schema(description = "JWT auth token", example = "randomsequenceofbytes123as213sdw3")

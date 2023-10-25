@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.brain.user_service.payload.response.EmailResponse;
+import org.brain.user_service.payload.response.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,19 +25,19 @@ public interface ValidateApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User token is valid",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EmailResponse.class))})
+                            schema = @Schema(implementation = UserResponse.class))})
     })
     @PostMapping(value = "/user")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<EmailResponse> validateUserToken(@AuthenticationPrincipal UserDetails userDetails);
+    ResponseEntity<UserResponse> validateUserToken(@AuthenticationPrincipal UserDetails userDetails);
 
     @Operation(summary = "Validate admin token")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User token is valid",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = EmailResponse.class))})
+                            schema = @Schema(implementation = UserResponse.class))})
     })
     @PostMapping(value = "/admin")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<EmailResponse> validateAdminToken(@AuthenticationPrincipal UserDetails userDetails);
+    ResponseEntity<UserResponse> validateAdminToken(@AuthenticationPrincipal UserDetails userDetails);
 }

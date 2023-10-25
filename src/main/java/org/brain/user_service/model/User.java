@@ -19,7 +19,7 @@ import java.util.Set;
 public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Id
-    @SequenceGenerator(name = "user_id_sequence", sequenceName = "user_id_sequence")
+    @SequenceGenerator(name = "user_id_sequence", sequenceName = "user_id_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_sequence")
     private Long id;
 

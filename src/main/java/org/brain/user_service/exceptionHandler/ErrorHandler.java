@@ -8,6 +8,7 @@ import org.brain.user_service.exceptionHandler.model.ErrorType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -51,6 +52,12 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
     }
 
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Error> handleAuthenticationException(Exception ex, HandlerMethod hm) {
+        log.error("handleAuthenticationException: message {}, method {}", ex.getMessage(), hm.getMethod().getName(), ex);
+        Error error = new Error(ex.getMessage(), ErrorType.PROCESSING_ERROR, LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Error> handleException(Exception ex, HandlerMethod hm) {
         log.error("handleException: message {}, method {}", ex.getMessage(), hm.getMethod().getName(), ex);

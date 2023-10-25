@@ -57,7 +57,7 @@ class UserControllerTest {
                 .firstName(userFirstName)
                 .lastName(userLastName)
                 .build();
-        when(userService.signUp(any(User.class))).thenReturn(new User());
+        when(userService.signUp(any(User.class))).thenReturn(User.builder().id(userId).email(userEmail).build());
 
         mockMvc.perform(post(SIGH_UP_URL)
                         .contentType(MediaType.APPLICATION_JSON)

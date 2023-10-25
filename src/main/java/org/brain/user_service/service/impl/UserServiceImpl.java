@@ -43,4 +43,9 @@ public record UserServiceImpl(UserRepository userRepository,
                 user.getEmail(), user.getPassword()
         ));
     }
+
+    @Override
+    public User findByEmail(String username) {
+        return userRepository.findByEmail(username).orElseThrow(EntityNotFoundException::new);
+    }
 }

@@ -57,6 +57,6 @@ To run the Identity Application with Docker, follow these steps:
        --build-arg DB_USER=<your_db_user> \
        --build-arg DB_PASSWORD=<your_db_password> \
        --build-arg EUREKA_URL=<eureka_url> \
-       -t user_service .
+       -t user-service .
     ```
 http://localhost:8080/swagger-ui/index.html

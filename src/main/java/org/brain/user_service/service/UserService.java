@@ -8,4 +8,6 @@ public interface UserService {
     User signUp(User user) throws EntityNotFoundException;
 
     Authentication logIn(User user) throws EntityNotFoundException;
+
+    User findByEmail(String username);
 }
