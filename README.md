@@ -10,7 +10,7 @@ Identity Application is a Spring Boot-based microservice for managing user authe
 - Spring Boot 3.1.3
 - Maven 3.9.1
 - Zipkin
-
+- OLTP
 ## Technologies Used
 
 1. Java 17
@@ -18,6 +18,7 @@ Identity Application is a Spring Boot-based microservice for managing user authe
 3. Spring Security
 4. JWT (JSON Web Tokens)
 5. Zipkin
+6. OLTP
 
 ## Application Features
 
@@ -59,7 +60,8 @@ To run the Identity Application with Docker, follow these steps:
        --build-arg DB_USER=<your_db_user> \
        --build-arg DB_PASSWORD=<your_db_password> \
        --build-arg EUREKA_URL=<eureka_url> \
-       --build-arg MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=<your_zipkin_endpoint> \
+       --build-arg MANAGEMENT_OTLP_TRACING_ENDPOINT=<your_oltp_tracing_endpoint> \
+       --build-arg MANAGEMENT_OTLP_METRICS_EXPORT_URL=<your_oltp_metrics_endpoint> \
        -t user-service .
     ```
 http://localhost:8080/swagger-ui/index.html
